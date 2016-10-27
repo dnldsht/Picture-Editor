@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/main_action_rotate"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="@string/main_action_rotate"
+        android:visible="false"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/main_action_crop"
+        android:title="@string/main_action_crop"
+        android:visible="false"
+        app:showAsAction="never"/>
+
+    <item
+    android:id="@+id/save"
+    android:title="Save"
+    app:showAsAction="always"/>
+
+</menu>
