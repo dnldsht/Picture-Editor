@@ -17,32 +17,37 @@
         android:id="@+id/toolbar_bottom"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="?attr/colorPrimary"
         android:layout_alignParentBottom="true"
+        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:gravity="center_horizontal">
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:weightSum="4">
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/menu_rotate"
             android:src="@drawable/crop_image_menu_rotate_left"/>
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/crop_image_menu_rotate_right"/>
+
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/crop_image_menu_rotate_left"/>
 
-
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/crop_image_menu_rotate_right"/>
-
 
     </LinearLayout>
 
