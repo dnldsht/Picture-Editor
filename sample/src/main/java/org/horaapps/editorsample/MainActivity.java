@@ -20,9 +20,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,9 +30,6 @@ import android.widget.Toast;
 
 import org.horaapps.editor.CropImage;
 import org.horaapps.editor.CropImageView;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.menu_rotate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyPopupMenu popupMenu = new MyPopupMenu(MainActivity.this, v);
+                MyPopupMenu popupMenu = new MyPopupMenu(MainActivity.this, v, true);
                 popupMenu.getMenuInflater().inflate(R.menu.rotate, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new MyPopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -95,27 +90,42 @@ public class MainActivity extends AppCompatActivity {
                 popupMenu.show();
             }
         });
+
+
+        findViewById(R.id.menu_crop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyPopupMenu popupMenu = new MyPopupMenu(MainActivity.this, v);
+                popupMenu.getMenuInflater().inflate(R.menu.aspect_ratio, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new MyPopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+                            case R.id.crop_custom: default:
+                                mCurrentFragment.setAspectRatioFree();
+                                break;
+                            case R.id.crop_1_1:
+                                mCurrentFragment.setAspectRatio(1, 1);
+                                break;
+                            case R.id.crop_4_3:
+                                mCurrentFragment.setAspectRatio(4, 3);
+                                break;
+                            case R.id.crop_9_16:
+                                mCurrentFragment.setAspectRatio(9, 16);
+                                break;
+                            case R.id.crop_16_9:
+                                mCurrentFragment.setAspectRatio(16, 9);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
 
-    public static void setForceShowIcon(PopupMenu popupMenu) {
-        try {
-            Field[] fields = popupMenu.getClass().getDeclaredFields();
-            for (Field field : fields) {
-                if ("mPopup".equals(field.getName())) {
-                    field.setAccessible(true);
-                    Object menuPopupHelper = field.get(popupMenu);
-                    Class<?> classPopupHelper = Class.forName(menuPopupHelper
-                            .getClass().getName());
-                    Method setForceIcons = classPopupHelper.getMethod(
-                            "setForceShowIcon", boolean.class);
-                    setForceIcons.invoke(menuPopupHelper, true);
-                    break;
-                }
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -224,24 +234,26 @@ public class MainActivity extends AppCompatActivity {
                 mCurrentFragment.setCropImageViewOptions(mCropImageViewOptions);
                 updateDrawerTogglesByOptions(mCropImageViewOptions);
                 break;
-            case R.id.drawer_option_toggle_aspect_ratio:
-                if (!mCropImageViewOptions.fixAspectRatio) {
-                    mCropImageViewOptions.fixAspectRatio = true;
-                    mCropImageViewOptions.aspectRatio = new Pair<>(1, 1);
-                } else {
-                    if (mCropImageViewOptions.aspectRatio.first == 1 && mCropImageViewOptions.aspectRatio.second == 1) {
-                        mCropImageViewOptions.aspectRatio = new Pair<>(4, 3);
-                    } else if (mCropImageViewOptions.aspectRatio.first == 4 && mCropImageViewOptions.aspectRatio.second == 3) {
-                        mCropImageViewOptions.aspectRatio = new Pair<>(16, 9);
-                    } else if (mCropImageViewOptions.aspectRatio.first == 16 && mCropImageViewOptions.aspectRatio.second == 9) {
-                        mCropImageViewOptions.aspectRatio = new Pair<>(9, 16);
-                    } else {
-                        mCropImageViewOptions.fixAspectRatio = false;
-                    }
-                }
-                mCurrentFragment.setCropImageViewOptions(mCropImageViewOptions);
-                updateDrawerTogglesByOptions(mCropImageViewOptions);
-                break;
+
+//            case R.id.drawer_option_toggle_aspect_ratio:
+//                if (!mCropImageViewOptions.fixAspectRatio) {
+//                    mCropImageViewOptions.fixAspectRatio = true;
+//                    mCropImageViewOptions.aspectRatio = new Pair<>(1, 1);
+//                } else {
+//                    if (mCropImageViewOptions.aspectRatio.first == 1 && mCropImageViewOptions.aspectRatio.second == 1) {
+//                        mCropImageViewOptions.aspectRatio = new Pair<>(4, 3);
+//                    } else if (mCropImageViewOptions.aspectRatio.first == 4 && mCropImageViewOptions.aspectRatio.second == 3) {
+//                        mCropImageViewOptions.aspectRatio = new Pair<>(16, 9);
+//                    } else if (mCropImageViewOptions.aspectRatio.first == 16 && mCropImageViewOptions.aspectRatio.second == 9) {
+//                        mCropImageViewOptions.aspectRatio = new Pair<>(9, 16);
+//                    } else {
+//                        mCropImageViewOptions.fixAspectRatio = false;
+//                    }
+//                }
+//                mCurrentFragment.setCropImageViewOptions(mCropImageViewOptions);
+//                updateDrawerTogglesByOptions(mCropImageViewOptions);
+//                break;
+
             case R.id.drawer_option_toggle_auto_zoom:
                 mCropImageViewOptions.autoZoomEnabled = !mCropImageViewOptions.autoZoomEnabled;
                 mCurrentFragment.setCropImageViewOptions(mCropImageViewOptions);

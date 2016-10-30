@@ -34,8 +34,9 @@
         <ImageButton
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:id="@+id/menu_crop"
             android:layout_height="wrap_content"
-            android:src="@drawable/crop_image_menu_rotate_right"/>
+            android:src="@drawable/ic_crop_white_24dp"/>
 
         <ImageButton
             android:layout_weight="1"

@@ -77,6 +77,18 @@ public final class MainFragment extends Fragment
         mCropImageView.setMaxZoom(options.maxZoomLevel);
     }
 
+    public void setAspectRatioFree() {
+        mCropImageView.clearAspectRatio();
+    }
+
+    public void setFixedAspectRatio(boolean fixed) {
+        mCropImageView.setFixedAspectRatio(fixed);
+    }
+
+    public void setAspectRatio(int aspectRatioX, int aspectRatioY) {
+        mCropImageView.setAspectRatio(aspectRatioX, aspectRatioY);
+    }
+
     /**
      * Set the initial rectangle to use.
      */

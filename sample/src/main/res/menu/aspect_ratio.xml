@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu>
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/crop_custom"
+        android:title="Custom"/>
+    <item android:id="@+id/crop_1_1"
+        android:title="1:1"/>
+    <item android:id="@+id/crop_16_9"
+        android:title="16:9"/>
+    <item android:id="@+id/crop_9_16"
+        android:title="9:16"/>
+    <item android:id="@+id/crop_4_3"
+        android:title="4:3"/>
 </menu>

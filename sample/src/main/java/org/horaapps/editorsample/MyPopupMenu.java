@@ -38,7 +38,11 @@ public class MyPopupMenu  {
      */
     public MyPopupMenu(Context context, View anchor) {
 
-        this(context, anchor, Gravity.NO_GRAVITY);
+        this(context, anchor, Gravity.NO_GRAVITY, false);
+    }
+
+    public MyPopupMenu(Context context, View anchor, boolean iconsVisible) {
+        this(context, anchor, Gravity.NO_GRAVITY, iconsVisible);
     }
 
     /**
@@ -52,8 +56,8 @@ public class MyPopupMenu  {
      * @param gravity The {@link Gravity} value for aligning the popup with its
      *        anchor.
      */
-    public MyPopupMenu(Context context, View anchor, int gravity) {
-        this(context, anchor, gravity, R.attr.popupMenuStyle, 0);
+    public MyPopupMenu(Context context, View anchor, int gravity,  boolean iconsVisible) {
+        this(context, anchor, gravity, R.attr.popupMenuStyle, 0, iconsVisible);
     }
 
     /**
@@ -74,7 +78,7 @@ public class MyPopupMenu  {
      *        to not look for defaults.
      */
     public MyPopupMenu(Context context, View anchor, int gravity, int popupStyleAttr,
-                     int popupStyleRes) {
+                     int popupStyleRes, boolean iconsVisible) {
         mContext = context;
         mAnchor = anchor;
 
@@ -103,7 +107,7 @@ public class MyPopupMenu  {
                 }
             }
         });
-        mPopup.setForceShowIcon(true);
+        mPopup.setForceShowIcon(iconsVisible);
     }
 
     /**
